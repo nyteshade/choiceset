@@ -1,5 +1,7 @@
 # ChoiceSet
 
+# NOTE: Docs are undergoing changes, as is the code; YMMV
+
 ## Overview
 Being a long time pen and paper role player, I have always had a fascination with die rolling and computers. One particular problem, handled by those with mathmatics skills greater than mine, is the one around producing as truly a random number as possible given the artificial limitations of computing.
 
