@@ -34,11 +34,15 @@ class ChoiceSet
   constructor(...values)
   {
     const OBJ = '[object Object]';
+    const choices = [];
+    const meta = [];
+
     values = values.map((v) => {
       v = ({}).toString.apply(v) === OBJ ? v : {name: v};
       v.weight = v.weight || 100;
       return v;
     });
+
 
     this.choices = values || [];
     if (this.choices.length) {
@@ -333,19 +337,19 @@ class ChoiceSet
    */
   chooseProp(key = 'name')
   {
-    let choice = this.choose;
+    let choice = this.one;
     return (choice._obj && choice._obj[key]) || choice[key];
   }
 
   /**
-   * Chooses a value via .choose and then retrieves the value property of
+   * Chooses a value via .one and then retrieves the value property of
    * the choice.
    *
    * @return {Mixed} the value of the chosen item from the set
    */
-  get chooseValue()
+  get oneValue()
   {
-    let choice = this.choose;
+    let choice = this.one;
     return choice.value || choice._obj || choice.name;
   }
 
@@ -354,7 +358,7 @@ class ChoiceSet
    *
    * @return {Mixed} an object from the ChoiceSet.
    */
-  get choose()
+  get one()
   {
     let roll = Math.random() * this.maxInterval;
     let item = null;
@@ -429,6 +433,43 @@ class ChoiceSet
     ];
 
     return weights;
+  }
+
+  /**
+   * Given an object, make a determination if that object is a wrapper object
+   * in the old style wherein `name` is the object to return and `weight` is
+   * the actual weight of the object for randomness calculation. If so, or
+   * either way, return two separate objects. One with meta, which contains
+   * the weight and any other properties and the object itself to add to the
+   * choices array.
+   *
+   * @param  {Object} obj an object to pick apart as above
+   * @return {Object} an object with a `meta` and `choice` properties
+   */
+  static asMetaAndChoice(obj) {
+    let result = {
+      meta: null,
+      choice: null
+    };
+
+    if (isFinite(obj.weight)) {
+      result.choice = obj.value || obj._obj || obj.name;
+      result.meta = obj;
+
+      delete obj.name;
+      delete obj.value;
+      delete obj._obj;
+
+      return result;
+    }
+    else {
+      result.choice = obj;
+      result.meta = {
+        weight: 100
+      }
+    }
+
+    return result;
   }
 }
 
