@@ -1,0 +1,25 @@
+{
+  "name": "choiceset",
+  "version": "1.0.0",
+  "description": "A utility for rolling and handling weighted randoms",
+  "main": "src/ChoiceSet.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyteshade/choiceset.git"
+  },
+  "keywords": [
+    "random",
+    "dice",
+    "rpg",
+    "gaming"
+  ],
+  "author": "Brielle Harrison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nyteshade/choiceset/issues"
+  },
+  "homepage": "https://github.com/nyteshade/choiceset#readme"
+}
